@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="PokerStats.Core/PokerStats.Core.csproj" />
   <Project Path="PokerStats.Tests/PokerStats.Tests.csproj" />
+  <Project Path="PokerStats.WinForms/PokerStats.WinForms.csproj" />
   <Project Path="PokerStats/PokerStats.csproj" />
 </Solution>

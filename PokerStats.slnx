@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PokerStats.Tests/PokerStats.Tests.csproj" />
+  <Project Path="PokerStats/PokerStats.csproj" />
+</Solution>

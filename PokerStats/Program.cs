@@ -32,6 +32,10 @@ switch (args[0].ToLowerInvariant())
         GameCommands.ListGames(dataService);
         break;
 
+    case "seed-data":
+        SeedCommands.SeedData(dataService);
+        break;
+
     case "stats":
         if (args.Length >= 2)
         {
@@ -96,6 +100,7 @@ static void PrintHelp()
     Console.WriteLine("  list-players                List all registered players");
     Console.WriteLine("  add-game                    Record a new tournament (interactive wizard)");
     Console.WriteLine("  list-games                  List all recorded games");
+    Console.WriteLine("  seed-data                   Populate database with 100 random sample games");
     Console.WriteLine("  stats                       Show all statistics");
     Console.WriteLine("  stats leaderboard           Overall leaderboard (wins, profit, ROI)");
     Console.WriteLine("  stats knockouts             Knockout leaderboard (K/D ratios)");

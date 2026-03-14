@@ -18,14 +18,14 @@ public static class StatsCommands
 
         Console.WriteLine("=== Overall Leaderboard ===");
         Console.WriteLine();
-        Console.WriteLine($"{"Rank",-5} {"Name",-20} {"Games",-7} {"Wins",-6} {"Win%",-7} {"Top3%",-7} {"ITM%",-7} {"AvgPos",-7} {"Net $",-10} {"ROI%",-8}");
-        Console.WriteLine(new string('-', 90));
+        Console.WriteLine($"{"Rank",-5} {"Name",-20} {"Games",-7} {"Wins",-6} {"Win%",-7} {"Top3%",-7} {"ITM%",-7} {"AvgPos",-7} {"Payout$",-11} {"Net $",-10} {"ROI%",-8}");
+        Console.WriteLine(new string('-', 102));
 
         for (int i = 0; i < leaderboard.Count; i++)
         {
             var s = leaderboard[i];
             Console.WriteLine(
-                $"{i + 1,-5} {s.PlayerName,-20} {s.GamesPlayed,-7} {s.Wins,-6} {s.WinRate,6:F1}% {s.TopThreeRate,6:F1}% {s.InTheMoneyRate,6:F1}% {s.AvgPlacement,7:F2} {s.NetProfit,9:F2} {s.Roi,7:F1}%");
+                $"{i + 1,-5} {s.PlayerName,-20} {s.GamesPlayed,-7} {s.Wins,-6} {s.WinRate,6:F1}% {s.TopThreeRate,6:F1}% {s.InTheMoneyRate,6:F1}% {s.AvgPlacement,7:F2} {s.TotalPayout,10:F2} {s.NetProfit,9:F2} {s.Roi,7:F1}%");
         }
 
         Console.WriteLine();
@@ -67,6 +67,9 @@ public static class StatsCommands
         Console.WriteLine("--- Earnings ---");
         Console.WriteLine($"  Total buy-in spent:    ${stats.TotalBuyIn:F2}");
         Console.WriteLine($"  Total payout earned:   ${stats.TotalPayout:F2}");
+        Console.WriteLine($"  Avg payout per game:   ${stats.AvgPayoutPerGame:F2}");
+        Console.WriteLine($"  Avg payout per cash:   ${stats.AvgPayoutPerCash:F2}");
+        Console.WriteLine($"  Biggest single payout: ${stats.BiggestPayout:F2}");
         Console.WriteLine($"  Net profit/loss:       ${stats.NetProfit:F2}");
         Console.WriteLine($"  ROI:                   {stats.Roi:F1}%");
         Console.WriteLine();

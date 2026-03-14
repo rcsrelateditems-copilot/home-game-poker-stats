@@ -110,6 +110,33 @@ public class StatsServiceTests
     }
 
     [Fact]
+    public void GetPlayerStats_Alice_PayoutStatsCorrect()
+    {
+        var db = BuildDatabase();
+        var svc = new StatsService(db);
+        var stats = svc.GetPlayerStats("alice");
+
+        // All 3 games paid out (60, 30, 60) => AvgPayoutPerGame = 50, AvgPayoutPerCash = 50, Biggest = 60
+        Assert.Equal(50m, stats.AvgPayoutPerGame);
+        Assert.Equal(50m, stats.AvgPayoutPerCash);
+        Assert.Equal(60m, stats.BiggestPayout);
+    }
+
+    [Fact]
+    public void GetPlayerStats_Bob_PayoutStatsWithMiss()
+    {
+        var db = BuildDatabase();
+        var svc = new StatsService(db);
+        var stats = svc.GetPlayerStats("bob");
+
+        // Bob: g1 payout=30, g2 payout=60, g3 payout=0
+        // AvgPayoutPerGame = 90/3 = 30, AvgPayoutPerCash = 90/2 = 45, Biggest = 60
+        Assert.Equal(30m, stats.AvgPayoutPerGame);
+        Assert.Equal(45m, stats.AvgPayoutPerCash);
+        Assert.Equal(60m, stats.BiggestPayout);
+    }
+
+    [Fact]
     public void GetPlayerStats_Alice_KnockoutsCorrect()
     {
         var db = BuildDatabase();

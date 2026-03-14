@@ -14,6 +14,9 @@ public record PlayerStats(
     double InTheMoneyRate,
     double AvgPlacement,
     decimal TotalPayout,
+    decimal AvgPayoutPerGame,
+    decimal AvgPayoutPerCash,
+    decimal BiggestPayout,
     decimal TotalBuyIn,
     decimal NetProfit,
     double Roi,
@@ -77,6 +80,13 @@ public class StatsService
             : 0;
 
         decimal totalPayout = gamesWithPlayer.Sum(g => g.Results.Where(r => r.PlayerId == playerId).Sum(r => r.Payout));
+        decimal avgPayoutPerGame = gamesPlayed > 0 ? totalPayout / gamesPlayed : 0;
+        var cashPayouts = gamesWithPlayer
+            .Select(g => g.Results.First(r => r.PlayerId == playerId).Payout)
+            .Where(p => p > 0)
+            .ToList();
+        decimal avgPayoutPerCash = cashPayouts.Count > 0 ? cashPayouts.Average() : 0;
+        decimal biggestPayout = cashPayouts.Count > 0 ? cashPayouts.Max() : 0;
         decimal totalBuyIn = gamesWithPlayer.Sum(g => g.BuyIn);
         decimal netProfit = totalPayout - totalBuyIn;
         double roi = totalBuyIn > 0 ? (double)(netProfit / totalBuyIn) * 100 : 0;
@@ -93,7 +103,8 @@ public class StatsService
         return new PlayerStats(
             playerId, player.Name, gamesPlayed, wins, topThree, inTheMoney,
             winRate, topThreeRate, itmRate, avgPlacement,
-            totalPayout, totalBuyIn, netProfit, roi,
+            totalPayout, avgPayoutPerGame, avgPayoutPerCash, biggestPayout,
+            totalBuyIn, netProfit, roi,
             totalKnockouts, timesKnockedOut, kdRatio,
             longestWinStreak, longestTopThreeStreak,
             currentWinStreak, currentTopThreeStreak
